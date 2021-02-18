@@ -16,7 +16,7 @@ import static sort.SortUtils.print;
 public class InsertionSortTest {
     @Test
     public void sortTest() {
-        SortAlgorithm shellSort = new MergeSort();
+        SortAlgorithm shellSort = new HeapSort();
         int[] arr = new int[10];
         Random random = new Random();
         for(int i=0; i<arr.length; i++) {
