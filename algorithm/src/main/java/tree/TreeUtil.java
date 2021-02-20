@@ -2,7 +2,7 @@ package tree;
 
 /**
  * Description:
- *
+ * 二叉树的一些操作
  * @author:edgarding
  * @date:2021/2/19
  **/
@@ -43,4 +43,5 @@ public class TreeUtil {
         }
         return Math.max(getDepth(root.left), getDepth(root.right)) + 1;
     }
+
 }
