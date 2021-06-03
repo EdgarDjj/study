@@ -8,7 +8,7 @@ package dynamic_program;
  * @author:edgarding
  * @date:2021/2/22
  **/
-public class MinDistance {
+public class EditDistance {
     /**
      * 求出最小的操作数
      * @param word1
@@ -125,6 +125,8 @@ public class MinDistance {
                     i--;
                     j--;
                     break;
+                default:
+
             }
         }
         while (i > 0) {
