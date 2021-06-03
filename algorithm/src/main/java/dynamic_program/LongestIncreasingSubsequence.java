@@ -8,7 +8,7 @@ package dynamic_program;
  * @author:edgarding
  * @date:2021/2/21
  **/
-public class LongIncreasingSubsequence {
+public class LongestIncreasingSubsequence {
     public int lengthOfLIS(int[] nums) {
         if (nums.length == 0) {
             return 0;

@@ -1,7 +1,6 @@
 package dynamic_program;
 
 import java.util.Arrays;
-import java.util.Comparator;
 
 /**
  * Description:

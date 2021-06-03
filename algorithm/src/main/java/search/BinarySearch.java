@@ -23,6 +23,12 @@ public class BinarySearch {
         return -1;
     }
 
+    /**
+     * 左边界查询
+     * @param arr
+     * @param target
+     * @return
+     */
     public int leftBoundSearch(int[] arr, int target) {
         int left = 0, right = arr.length - 1;
         while(left <= right) {
@@ -41,6 +47,12 @@ public class BinarySearch {
         return left;
     }
 
+    /**
+     * 右边界查询
+     * @param arr
+     * @param target
+     * @return
+     */
     public int rightBoundSearch(int[] arr, int target) {
         int left = 0, right = arr.length - 1;
         while(left <= right) {

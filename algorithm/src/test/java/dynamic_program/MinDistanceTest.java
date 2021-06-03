@@ -2,8 +2,6 @@ package dynamic_program;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 /**
  * Description:
  *
