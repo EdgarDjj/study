@@ -14,6 +14,11 @@ public interface List {
 
     boolean add(int index, int val);
 
+    /**
+     * return removed element value
+     * @param index
+     * @return
+     */
     int remove(int index);
 
     int set(int index, int newVal);
@@ -25,4 +30,6 @@ public interface List {
     int get();
 
     int get(int index);
+
+    void print();
 }

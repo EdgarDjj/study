@@ -3,11 +3,11 @@ package 链表;
 /**
  * Description:
  * 单链表实现
- *
+ * 单链表的反转实现
  * @author:edgarding
  * @date:2021/6/3
  **/
-public class SingleList implements List{
+public class SingleLinkedList implements List{
     private int size;
     Node head, tail;
     private static class Node {
@@ -20,7 +20,7 @@ public class SingleList implements List{
         }
     }
 
-    public SingleList() {
+    public SingleLinkedList() {
     }
 
 
@@ -45,7 +45,7 @@ public class SingleList implements List{
 
     @Override
     public boolean add(int index, int val) {
-        checkIndex(index);
+        checkElementIndex(index);
         if (index == size - 1) {
             return add(val);
         }
@@ -62,7 +62,7 @@ public class SingleList implements List{
 
     @Override
     public int remove(int index) {
-        checkIndex(index);
+        checkElementIndex(index);
         Node cur = head, pre = head;
         while (cur != null && index-- != 0) {
             pre = cur;
@@ -77,7 +77,7 @@ public class SingleList implements List{
 
     @Override
     public int set(int index, int newVal) {
-        checkIndex(index);
+        checkElementIndex(index);
         Node cur = head;
         while (cur != null && index-- != 0) {
             cur = cur.next;
@@ -110,7 +110,7 @@ public class SingleList implements List{
 
     @Override
     public int get(int index) {
-        checkIndex(index);
+        checkElementIndex(index);
         if (index == size - 1) {
             return get();
         }
@@ -122,9 +122,51 @@ public class SingleList implements List{
     }
 
 
-    private void checkIndex(int index) {
+    private void checkElementIndex(int index) {
         if (index >= size) {
             throw new IndexOutOfBoundsException();
+        } else if (index < 0) {
+            throw new IllegalArgumentException();
         }
+    }
+
+    /**
+     * 单链表反转
+     */
+    public void reverse() {
+        Node cur = head, pre = null;
+        while (cur != null) {
+            Node temp = cur.next;
+            cur.next = pre;
+            pre = cur;
+            cur = temp;
+        }
+        tail = head;
+        head = pre;
+    }
+
+
+    public void reverseV2() {
+        Node dummy = new Node(0);
+        dummy.next = head;
+        Node cur = head;
+        while (cur.next != null) {
+            Node node = cur.next;
+            cur.next = node.next;
+            node.next = dummy.next;
+            dummy.next = node;
+        }
+        tail = head;
+        head = dummy.next;
+    }
+
+    @Override
+    public void print() {
+        Node cur = head;
+        while (cur != null) {
+            System.out.print(cur.item + " ");
+            cur = cur.next;
+        }
+        System.out.println();
     }
 }

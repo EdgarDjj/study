@@ -25,6 +25,7 @@ public class ReverseList {
 
     /**
      * 反转整个链表2
+     * 优势：容易反转某个范围内的子链表
      * @param head
      * @return
      */
@@ -34,12 +35,12 @@ public class ReverseList {
         }
         ListNode dummy = new ListNode(0);
         dummy.next = head;
-        ListNode cur = head, pre = dummy;
+        ListNode cur = head;
         while(cur.next != null) {
             ListNode node = cur.next;
             cur.next = node.next;
-            node.next = pre.next;
-            pre.next = node;
+            node.next = dummy.next;
+            dummy.next = node;
         }
         return dummy.next;
     }
