@@ -1,13 +1,16 @@
 package 链表;
 
+import java.util.ArrayList;
+
 /**
  * Description:
  * 单链表实现
  * 单链表的反转实现
+ *
  * @author:edgarding
  * @date:2021/6/3
  **/
-public class SingleLinkedList implements List{
+public class SingleLinkedList implements List {
     private int size;
     Node head, tail;
     private static class Node {
@@ -73,6 +76,26 @@ public class SingleLinkedList implements List{
         cur = null;
         size--;
         return oldVal;
+    }
+
+    /**
+     * 移除值为item的节点
+     *
+     * @param item
+     * @return 返回头节点
+     */
+    public Node removeElement(int item) {
+        Node dummyNode = new Node(0);
+        dummyNode.next = head;
+        Node cur = dummyNode;
+        while (cur.next != null) {
+            if (cur.next.item == item) {
+                cur.next = cur.next.next;
+            } else {
+                cur = cur.next;
+            }
+        }
+        return dummyNode.next;
     }
 
     @Override
