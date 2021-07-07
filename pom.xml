@@ -13,6 +13,7 @@
         <module>datastructure</module>
         <module>other</module>
         <module>interview</module>
+        <module>concurrence</module>
     </modules>
 
     <properties>

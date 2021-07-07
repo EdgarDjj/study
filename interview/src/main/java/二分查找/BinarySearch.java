@@ -73,4 +73,37 @@ public class BinarySearch {
         }
         return r;
     }
+
+    /**
+     * 搜索左右边界
+     *
+     * @param nums
+     * @param target
+     * @param isLeftOrRight true -> left falst -> right
+     * @return
+     */
+    private int binarySearch(int[] nums, int target, boolean isLeftOrRight) {
+        int l = 0, r = nums.length - 1;
+        for (; l <= r; ) {
+            int mid = l + ((r - l) >> 1);
+            if (nums[mid] < target) {
+                l = mid + 1;
+            } else if (nums[mid] > target) {
+                r = mid - 1;
+            } else {
+                if (isLeftOrRight) {
+                    r = mid - 1;
+                } else {
+                    l = mid + 1;
+                }
+            }
+        }
+        if (isLeftOrRight && l < nums.length && nums[l] == target) {
+            return l;
+        } else if (!isLeftOrRight && r >= 0 && nums[r] == target) {
+            return r;
+        } else {
+            return -1;
+        }
+    }
 }

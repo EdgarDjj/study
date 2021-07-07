@@ -44,7 +44,7 @@ public class HeapSort implements Sort {
         for (int k = i * 2 + 1; k < len; k = k * 2 + 1) {
             // 如果左节点小于右节点 k指向右节点
             // 选择左右孩子中一个较大的与当前节点交换
-            if (k + 1 < len && arr[k] < arr[k + 1]) {
+            if (k + 1 <= len && arr[k] < arr[k + 1]) {
                 k++;
             }
             if (arr[k] > temp) {
@@ -57,4 +57,52 @@ public class HeapSort implements Sort {
         // 将tmp值放入到最终位置
         arr[i] = temp;
     }
+
+    /**
+     * 优化
+     *
+     * @param nums
+     * @return
+     */
+    public int[] sortArray(int[] nums) {
+        heapSort(nums);
+        return nums;
+    }
+
+    public void heapSort(int[] nums) {
+        int len = nums.length - 1;
+        buildMaxHeap(nums, len);
+        for (int i = len; i >= 1; --i) {
+            swap(nums, i, 0);
+            len -= 1;
+            maxHeapify(nums, 0, len);
+        }
+    }
+
+    public void buildMaxHeap(int[] nums, int len) {
+        for (int i = len / 2; i >= 0; --i) {
+            maxHeapify(nums, i, len);
+        }
+    }
+
+    public void maxHeapify(int[] nums, int i, int len) {
+        for (; (i << 1) + 1 <= len; ) {
+            int lson = i * 2 + 1;
+            int rson = i * 2 + 2;
+            int large = i;
+            if (lson <= len && nums[lson] > nums[i]) {
+                large = lson;
+            }
+            if (rson <= len && nums[rson] > nums[large]) {
+                large = rson;
+            }
+            if (large != i) {
+                swap(nums, i, large);
+                i = large;
+            } else {
+                break;
+            }
+        }
+    }
+
 }

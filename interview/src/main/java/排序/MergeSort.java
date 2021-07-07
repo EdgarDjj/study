@@ -44,4 +44,5 @@ public class MergeSort implements Sort {
         }
         System.arraycopy(temp, 0, arr, left, size);
     }
+
 }
