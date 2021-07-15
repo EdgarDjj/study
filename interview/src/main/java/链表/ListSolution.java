@@ -36,6 +36,34 @@ public class ListSolution {
     }
 
     /**
+     * 删除链表的倒数第n个节点
+     *
+     * @param head
+     * @param n    第n个节点
+     * @return 返回头节点
+     */
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        // 删除倒数第n个 返回头节点
+        // 一趟扫描
+        // 快慢指针
+        if (head == null) {
+            return null;
+        }
+        ListNode dummyNode = new ListNode(0);
+        dummyNode.next = head;
+        ListNode slow = dummyNode, fast = dummyNode;
+        for (; n > 0; n--) {
+            fast = fast.next;
+        }
+
+        for (; fast.next != null; fast = fast.next, slow = slow.next) {
+        }
+        slow.next = slow.next.next;
+        return dummyNode.next;
+    }
+
+
+    /**
      * 反转整个链表
      *
      * @param head
@@ -178,5 +206,66 @@ public class ListSolution {
         for (; fast != null; fast = fast.next, slow = slow.next) {
         }
         return slow;
+    }
+
+    /**
+     * 重排链表
+     * 给定一个单链表 L：L0→L1→…→Ln-1→Ln ，
+     * 将其重新排列后变为： L0→Ln→L1→Ln-1→L2→Ln-2→…
+     * <p>
+     * 你不能只是单纯的改变节点内部的值，而是需要实际的进行节点交换。
+     *
+     * @param head
+     */
+    public void reorderList(ListNode head) {
+        if (head == null || head.next == null) {
+            return;
+        }
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        // 使得slow位于中间靠左边
+        ListNode fast = dummy, slow = dummy;
+        for (; fast != null && fast.next != null; fast = fast.next.next, slow = slow.next) {
+        }
+        ;
+        ListNode last = slow.next;
+        slow.next = null;
+        last = reverseList(last);
+
+        for (ListNode cur = head; last != null; ) {
+            ListNode tmp = cur.next;
+            ListNode tmp2 = last.next;
+            cur.next = last;
+            last.next = tmp;
+            cur = tmp;
+            last = tmp2;
+        }
+    }
+
+    /**
+     * 奇偶链表
+     * 给定一个单链表，把所有的奇数节点和偶数节点分别排在一起。请注意，这里的奇数节点和偶数节点指的是节点编号的奇偶性，而不是节点的值的奇偶性。
+     * <p>
+     * 请尝试使用原地算法完成。你的算法的空间复杂度应为 O(1)，时间复杂度应为 O(nodes)，nodes 为节点总数。
+     *
+     * @param head
+     * @return
+     */
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        // head 为奇链表头节点 o为尾节点
+        ListNode o = head;
+        // p 为偶链表的头节点 e为尾节点
+        ListNode p = head.next, e = p;
+        for (; o.next != null && e.next != null; ) {
+            o.next = e.next;
+            o = o.next;
+            e.next = o.next;
+            e = e.next;
+        }
+        o.next = p;
+        return head;
     }
 }

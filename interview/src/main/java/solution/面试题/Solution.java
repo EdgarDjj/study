@@ -59,6 +59,40 @@ public class Solution {
         return sb.toString().trim();
     }
 
+    /**
+     * 马走棋盘算法：给定一个n*n的棋盘，并指定
+     * <p>
+     * 一个初始坐标（x，y），判断马从这个点开始
+     * <p>
+     * 能否每个点仅走一遍，通过每一个点
+     * todo: 思路差不多
+     * （注：马按日字型走）
+     *
+     * @param board
+     * @param x
+     * @param y
+     * @return
+     */
+    private int jumpCount = 1;
+
+    public boolean horseInBoard(int[][] board, int x, int y) {
+        // 马走日
+        // -》 x+1 y+2
+        int m = board.length, n;
+        if (m == 0 | (n = board[0].length) == 0) {
+            return false;
+        }
+        int[][] move = {{2, 1}, {1, 2}, {-1, 2}, {-2, 1}, {-2, -1}, {-1, -2}, {1, -2}, {2, -1}};
+
+
+        return jumpCount == (m * n);
+    }
+
+    // dfs
+    private void jump(int[][] board, int x, int y, int[][] move) {
+
+    }
+
     public static void main(String[] args) throws IOException {
         Solution solution = new Solution();
         solution.reverseWords("a good   example");

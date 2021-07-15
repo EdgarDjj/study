@@ -18,6 +18,8 @@ public class MergeSort implements Sort {
     private void mergeSort(int[] arr, int left, int right) {
         if (left < right) {
             int mid = left + ((right - left) >> 1);
+            // 注意这里递归调用是mid的值
+            // 如果以left ～ mid-1 可能会stackoverflow
             mergeSort(arr, left, mid);
             mergeSort(arr, mid + 1, right);
             merge(arr, left, mid, right);

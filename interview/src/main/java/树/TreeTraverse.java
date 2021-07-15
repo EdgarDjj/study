@@ -1,9 +1,6 @@
 package 树;
 
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Description:
@@ -22,18 +19,17 @@ public class TreeTraverse {
      * @param root
      * @return
      */
-    public List<Integer> preorderTraverse(TreeNode root) {
+    public List<Integer> preorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        Deque<TreeNode> stack = new LinkedList<>();
-        TreeNode cur = root;
-        while (cur != null || !stack.isEmpty()) {
-            while (cur != null) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        for (TreeNode cur = root; cur != null || !stack.isEmpty(); cur = cur.right) {
+            // left
+            for (; cur != null; cur = cur.left) {
                 stack.push(cur);
                 res.add(cur.val);
-                cur = cur.left;
             }
+            // right
             cur = stack.pop();
-            cur = cur.right;
         }
         return res;
     }
@@ -44,18 +40,15 @@ public class TreeTraverse {
      * @param root
      * @return
      */
-    public List<Integer> inorderTraverse(TreeNode root) {
+    public List<Integer> inorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        Deque<TreeNode> stack = new LinkedList<>();
-        TreeNode cur = root;
-        while (cur != null || !stack.isEmpty()) {
-            while (cur != null) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        for (TreeNode cur = root; cur != null || !stack.isEmpty(); cur = cur.right) {
+            for (; cur != null; cur = cur.left) {
                 stack.push(cur);
-                cur = cur.left;
             }
             cur = stack.pop();
             res.add(cur.val);
-            cur = cur.right;
         }
         return res;
     }
@@ -66,16 +59,18 @@ public class TreeTraverse {
      * @param root
      * @return
      */
-    public List<Integer> postorderTraverse(TreeNode root) {
+    public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        Deque<TreeNode> stack = new LinkedList<>();
-        TreeNode cur = root, pre = null;
-        while (cur != null || !stack.isEmpty()) {
-            while (cur != null) {
+        Deque<TreeNode> stack = new ArrayDeque<>();
+        for (TreeNode cur = root, pre = null; cur != null || !stack.isEmpty(); ) {
+            // left
+            for (; cur != null; cur = cur.left) {
                 stack.push(cur);
-                cur = cur.left;
             }
             cur = stack.pop();
+            // 若无右节点 -》 记录
+            // 若pre==cur -》 到根 -》 记录 （pre 记录当前子树的根节点）
+            // 否则继续向右迭代
             if (cur.right == null || cur.right == pre) {
                 res.add(cur.val);
                 pre = cur;

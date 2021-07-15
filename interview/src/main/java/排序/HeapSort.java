@@ -59,7 +59,7 @@ public class HeapSort implements Sort {
     }
 
     /**
-     * 优化
+     * 优化后的堆排序
      *
      * @param nums
      * @return
@@ -69,36 +69,43 @@ public class HeapSort implements Sort {
         return nums;
     }
 
-    public void heapSort(int[] nums) {
-        int len = nums.length - 1;
-        buildMaxHeap(nums, len);
-        for (int i = len; i >= 1; --i) {
+    private void heapSort(int[] nums) {
+        // build heap
+        int len = nums.length;
+        buildHeap(nums, len);
+        for (int i = len - 1; i >= 1; --i) {
             swap(nums, i, 0);
-            len -= 1;
-            maxHeapify(nums, 0, len);
+            maxHeapify(nums, 0, --len);
         }
     }
 
-    public void buildMaxHeap(int[] nums, int len) {
-        for (int i = len / 2; i >= 0; --i) {
+    private void buildHeap(int[] nums, int len) {
+        for (int i = len / 2; i >= 0; i--) {
             maxHeapify(nums, i, len);
         }
     }
 
-    public void maxHeapify(int[] nums, int i, int len) {
-        for (; (i << 1) + 1 <= len; ) {
-            int lson = i * 2 + 1;
-            int rson = i * 2 + 2;
-            int large = i;
-            if (lson <= len && nums[lson] > nums[i]) {
-                large = lson;
+    /**
+     * 堆化
+     *
+     * @param nums
+     * @param i
+     * @param len
+     */
+    private void maxHeapify(int[] nums, int i, int len) {
+        // 如果i<<1 >= len 说明已经没有左子树，无需在进行循环
+        for (; (i << 1) < len; ) {
+            int left = i * 2, right = i * 2 + 1, larget = i;
+            if (left < len && nums[larget] < nums[left]) {
+                larget = left;
             }
-            if (rson <= len && nums[rson] > nums[large]) {
-                large = rson;
+            if (right < len && nums[larget] < nums[right]) {
+                larget = right;
             }
-            if (large != i) {
-                swap(nums, i, large);
-                i = large;
+            // 最大堆从子树向根构造，若无发生交换说明该子树已经为最大堆
+            if (larget != i) {
+                swap(nums, larget, i);
+                i = larget;
             } else {
                 break;
             }
