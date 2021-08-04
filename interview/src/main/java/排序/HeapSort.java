@@ -22,94 +22,45 @@ public class HeapSort implements Sort {
     public int[] sort(int[] arr) {
         // 1.构建大顶堆
         int n = arr.length;
-        for (int i = n / 2 - 1; i >= 0; i--) {
-            adjustHeap(arr, i, n - 1);
+        for (int i = n / 2; i >= 0; i--) {
+            maxHeapify(arr, i, n - 1);
         }
-
         // 2.调整堆结构 + 交换堆顶与末尾元素 -> 从而达到排序的目的
         for (int j = n - 1; j > 0; j--) {
             // 堆顶的元素由于是最大的，与末尾元素进行交换
             // 使得arr[j]是所有元素中最大的数
             swap(arr, 0, j);
-            // 对堆结构进行调整 调整 0 ～ j - 1
-            adjustHeap(arr, 0, j);
+            // 删除最大元素 j
+            maxHeapify(arr, 0, j);
         }
         return arr;
     }
 
-    private static void adjustHeap(int[] arr, int i, int len) {
-        // 取当前节点构建
-        int temp = arr[i];
-        // 构建i节点的左子树
-        for (int k = i * 2 + 1; k < len; k = k * 2 + 1) {
-            // 如果左节点小于右节点 k指向右节点
-            // 选择左右孩子中一个较大的与当前节点交换
-            if (k + 1 <= len && arr[k] < arr[k + 1]) {
-                k++;
-            }
-            if (arr[k] > temp) {
-                arr[i] = arr[k];
-                i = k;
-            } else {
-                break;
-            }
-        }
-        // 将tmp值放入到最终位置
-        arr[i] = temp;
-    }
-
-    /**
-     * 优化后的堆排序
-     *
-     * @param nums
-     * @return
-     */
-    public int[] sortArray(int[] nums) {
-        heapSort(nums);
-        return nums;
-    }
-
-    private void heapSort(int[] nums) {
-        // build heap
-        int len = nums.length;
-        buildHeap(nums, len);
-        for (int i = len - 1; i >= 1; --i) {
-            swap(nums, i, 0);
-            maxHeapify(nums, 0, --len);
-        }
-    }
-
-    private void buildHeap(int[] nums, int len) {
+    private static void buildHeap(int[] arr, int len) {
         for (int i = len / 2; i >= 0; i--) {
-            maxHeapify(nums, i, len);
+            maxHeapify(arr, i, len);
         }
     }
 
-    /**
-     * 堆化
-     *
-     * @param nums
-     * @param i
-     * @param len
-     */
-    private void maxHeapify(int[] nums, int i, int len) {
-        // 如果i<<1 >= len 说明已经没有左子树，无需在进行循环
+    private static void maxHeapify(int[] arr, int i, int len) {
         for (; (i << 1) < len; ) {
-            int left = i * 2, right = i * 2 + 1, larget = i;
-            if (left < len && nums[larget] < nums[left]) {
-                larget = left;
+            int left = i * 2, right = i * 2 + 1, largest = i;
+            if (left < len && arr[largest] < arr[left]) {
+                largest = left;
             }
-            if (right < len && nums[larget] < nums[right]) {
-                larget = right;
+            if (right < len && arr[largest] < arr[right]) {
+                largest = right;
             }
-            // 最大堆从子树向根构造，若无发生交换说明该子树已经为最大堆
-            if (larget != i) {
-                swap(nums, larget, i);
-                i = larget;
+            if (largest != i) {
+                swap(arr, i, largest);
+                i = largest;
             } else {
                 break;
             }
         }
     }
-
 }
+
+
+
+

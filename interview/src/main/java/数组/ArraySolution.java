@@ -108,4 +108,68 @@ public class ArraySolution {
         nums[i] = nums[j];
         nums[j] = tmp;
     }
+
+    /**
+     * 数组中第k大的元素
+     *
+     * @param nums
+     * @param k
+     * @return
+     */
+    public int findKthLargest(int[] nums, int k) {
+        int heapSize = nums.length;
+        buildMaxHeap(nums, heapSize);
+        for (int i = nums.length - 1; i >= nums.length - k + 1; --i) {
+            swap(nums, 0, i);
+            --heapSize;
+            maxHeapify(nums, 0, heapSize);
+        }
+        return nums[0];
+    }
+
+    public void buildMaxHeap(int[] a, int heapSize) {
+        for (int i = heapSize / 2; i >= 0; --i) {
+            maxHeapify(a, i, heapSize);
+        }
+    }
+
+    public void maxHeapify(int[] a, int i, int heapSize) {
+        int l = i * 2 + 1, r = i * 2 + 2, largest = i;
+        if (l < heapSize && a[l] > a[largest]) {
+            largest = l;
+        }
+        if (r < heapSize && a[r] > a[largest]) {
+            largest = r;
+        }
+        if (largest != i) {
+            swap(a, i, largest);
+            maxHeapify(a, largest, heapSize);
+        }
+    }
+
+    /**
+     * 给定一个整数数组 a，其中1 ≤ a[i] ≤ n （n为数组长度）, 其中有些元素出现两次而其他元素出现一次。
+     * <p>
+     * 找到所有出现两次的元素。
+     * <p>
+     * 你可以不用到任何额外空间并在O(n)时间复杂度内解决这个问题吗？
+     * <p>
+     * 注意1 ≤ a[i] ≤ n
+     * 通过这个来在原地数组进行记录
+     *
+     * @param nums
+     * @return
+     */
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer> ret = new ArrayList<>();
+        int n = nums.length;
+        for (int i = 0; i < n; i++) {
+            nums[(nums[i] - 1) % n] += n;
+        }
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] > 2 * n) ret.add(i + 1);
+        }
+        return ret;
+    }
 }

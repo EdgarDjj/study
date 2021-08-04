@@ -13,6 +13,17 @@ import java.util.*;
  **/
 public class TreeTraverse {
 
+    public void traversal(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        // 前序处理位置
+        traversal(root.left);
+        // 中序处理位置
+        traversal(root.right);
+        // 后续处理位置
+    }
+
     /**
      * 根 -》 左 -》右
      *

@@ -21,6 +21,17 @@ public class BinarySearchTest {
     }
 
     @Test
+    public void test2() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("das").append(",");
+        sb.deleteCharAt(sb.length() - 1);
+        System.out.println(sb.toString());
+        String str = "1234213";
+        str += String.valueOf("2") + ",";
+        System.out.println(str);
+    }
+
+    @Test
     public void test1() {
 //        int a = 10;
 //        Integer b = 10;

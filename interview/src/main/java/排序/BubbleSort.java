@@ -10,7 +10,6 @@ import static 排序.SortUtil.swap;
  * @date:2021/6/9
  **/
 public class BubbleSort implements Sort {
-
     @Override
     public int[] sort(int[] arr) {
         int n = arr.length;

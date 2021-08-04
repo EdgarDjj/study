@@ -73,4 +73,37 @@ public class TreeBuilding {
         }
         return root;
     }
+
+    /**
+     * 前序后序构建二叉树
+     * 注意只有每个节点度为2或者0的时候前序和后序才能唯一确定一颗二叉树，只有一个子节点是无法确定的，因为你无法判断他是左子树还是右子树
+     *
+     * @param pre
+     * @param post
+     * @return
+     */
+    public TreeNode constructFromPrePost(int[] pre, int[] post) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < post.length; i++) {
+            map.put(post[i], i);
+        }
+        return build(map, pre, 0, pre.length - 1, post, 0, post.length - 1);
+    }
+
+    private TreeNode build(HashMap<Integer, Integer> map, int[] pre, int preL, int preR, int[] post, int postL, int postR) {
+        if (preL > preR || postL > postR) {
+            return null;
+        }
+        int rootVal = pre[preL];
+        TreeNode root = new TreeNode(rootVal);
+        if (preL != preR) {
+            // 左子树的起始位置
+            int index = map.get(pre[preL + 1]);
+            int leftSize = index - postL;
+            int rightSize = postR - index;
+            root.left = build(map, pre, preL + 1, preL + 1 + leftSize, post, postL, index);
+            root.right = build(map, pre, preR - rightSize + 2, preR, post, index + 1, postR - 1);
+        }
+        return root;
+    }
 }

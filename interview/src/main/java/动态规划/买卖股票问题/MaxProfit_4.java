@@ -1,4 +1,4 @@
-package solution.买卖股票问题;
+package 动态规划.买卖股票问题;
 
 /**
  * Description:
